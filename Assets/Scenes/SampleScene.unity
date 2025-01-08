@@ -337,6 +337,7 @@ MonoBehaviour:
   projectileSpeed: 5
   numberOfProjectiles: 12
   fireRate: 2
+  projectileLifetime: 3
 --- !u!1001 &1077847238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -359,6 +360,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2173300472652122405, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
       propertyPath: rightMovement
+      value: 275
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173300472652122405, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
+      propertyPath: leftRotationKey
+      value: 276
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173300472652122405, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
+      propertyPath: rightRotationKey
       value: 275
       objectReference: {fileID: 0}
     - target: {fileID: 4244435289499680339, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
@@ -418,18 +427,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2173300472652122405, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
-      propertyPath: shootingKey
-      value: 115
-      objectReference: {fileID: 0}
-    - target: {fileID: 2173300472652122405, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
-      propertyPath: leftMovement
-      value: 97
-      objectReference: {fileID: 0}
-    - target: {fileID: 2173300472652122405, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
-      propertyPath: rightMovement
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 4244435289499680339, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.75
