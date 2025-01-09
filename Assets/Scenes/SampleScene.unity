@@ -363,6 +363,10 @@ PrefabInstance:
       value: 275
       objectReference: {fileID: 0}
     - target: {fileID: 2173300472652122405, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
+      propertyPath: rotationSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2173300472652122405, guid: cd82d074b90a3a642ae6fb8c4131c015, type: 3}
       propertyPath: leftRotationKey
       value: 276
       objectReference: {fileID: 0}
