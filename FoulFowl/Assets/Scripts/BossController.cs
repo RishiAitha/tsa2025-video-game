@@ -31,8 +31,8 @@ public class BossController : MonoBehaviour
         for (int i = 0; i < numberOfProjectiles; i++)
         {
             // Calculate the direction for the current projectile
-            float projectileDirX = Mathf.Cos(angle * Mathf.Deg2Rad);
-            float projectileDirY = Mathf.Sin(angle * Mathf.Deg2Rad);
+            float projectileDirX = Mathf.Cos(angle * Mathf.Deg2Rad * Random.Range(-5, 5));
+            float projectileDirY = Mathf.Sin(angle * Mathf.Deg2Rad * Random.Range(-5, 5));
             Vector2 projectileDirection = new Vector2(projectileDirX, projectileDirY).normalized;
 
             // Spawn the projectile

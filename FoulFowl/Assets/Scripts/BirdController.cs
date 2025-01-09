@@ -46,13 +46,15 @@ public class BirdController : MonoBehaviour
     }
 
     void MoveUpward()
+{
+    // Move forward in the direction the bird is facing, unless recoiling
+    if (!isRecoiling)
     {
-        // Slowly move upward unless recoiling
-        if (!isRecoiling)
-        {
-            transform.Translate(new Vector3(0f, upwardSpeed * Time.deltaTime, 0f), Space.World);
-        }
+        Vector3 forwardDirection = transform.up.normalized; // Bird's forward direction
+        transform.Translate(forwardDirection * upwardSpeed * Time.deltaTime, Space.World);
     }
+}
+
 
     void HandleShooting()
     {
