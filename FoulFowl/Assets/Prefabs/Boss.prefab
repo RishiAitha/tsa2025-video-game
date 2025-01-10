@@ -100,11 +100,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8763401274505401350, guid: 60996971dc4a1834d80f5ada2341eb19, type: 3}
   reverseProjectilePrefab: {fileID: 8763401274505401350, guid: 1872f7b3f8e513b4eb48cc8dafcb2885, type: 3}
+  upgradeProjectilePrefab: {fileID: 8763401274505401350, guid: 66ddf6eaee114844baee7a74d68c3621, type: 3}
   projectileSpeed: 5
   numberOfProjectiles: 5
   fireRate: 2
   projectileLifetime: 3
   health: 200
+  playerManager: {fileID: 0}
+  winMenu: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  winnerText: {fileID: 0}
+  reverseProjectileChance: 0.005
+  upgradeProjectileChance: 0.005
 --- !u!58 &2875648164171702351
 CircleCollider2D:
   m_ObjectHideFlags: 0

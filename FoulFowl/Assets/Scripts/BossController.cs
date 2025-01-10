@@ -7,6 +7,7 @@ public class BossController : MonoBehaviour
 {
     public GameObject projectilePrefab; // The projectile prefab
     public GameObject reverseProjectilePrefab; // Special control-reversing projectile prefab
+    public GameObject upgradeProjectilePrefab;
     public float projectileSpeed = 5f;  // Speed of the projectiles
     public int numberOfProjectiles = 5; // Number of projectiles to shoot out evenly
     public float fireRate = 2f;         // Time interval between each burst of projectiles
@@ -20,6 +21,9 @@ public class BossController : MonoBehaviour
     public GameObject winMenu;
     public GameObject pauseMenu;
     public TextMeshProUGUI winnerText;
+
+    public float reverseProjectileChance = 0.005f;
+    public float upgradeProjectileChance = 0.005f;
 
     void Start()
     {
@@ -65,10 +69,15 @@ public class BossController : MonoBehaviour
             GameObject projectile;
             bool isReverseProjectile;
             // Spawn the projectile
-            if (Random.Range(0, 50) > 49f)
+            if (Random.Range(0f, 1f) <= reverseProjectileChance)
             {
                 projectile = Instantiate(reverseProjectilePrefab, transform.position, Quaternion.identity);
                 isReverseProjectile = true;
+            }
+            else if (Random.Range(0f, 1f) <= upgradeProjectileChance)
+            {
+                projectile = Instantiate(upgradeProjectilePrefab, transform.position, Quaternion.identity);
+                isReverseProjectile = false;
             }
             else
             {

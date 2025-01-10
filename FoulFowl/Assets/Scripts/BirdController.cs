@@ -14,7 +14,8 @@ public class BirdController : MonoBehaviour
     public GameObject eggPrefab;    // Prefab for the egg projectile
     public Transform firePoint;        // Point from which the projectile is fired
     public float projectileSpeed = 10f; // Speed of the projectile
-    public float rapidFireRate = 0.2f;  // Time interval between shots in rapid-fire mode
+    public float shotCooldown = 0.25f;
+    private float shotCooldownTimer;
 
     private float sKeyHoldTime = 0f;    // Time the S key has been held
     public float eggShotTime = 3f;      // Time needed to shoot an egg
@@ -73,6 +74,11 @@ public class BirdController : MonoBehaviour
     void HandleShooting()
     {
         eggBar.fillAmount = sKeyHoldTime / eggShotTime;
+        
+        if (shotCooldownTimer >= 0)
+        {
+            shotCooldownTimer -= Time.deltaTime;
+        }
 
         if (Input.GetKey(shootingKey))
         {
@@ -80,16 +86,20 @@ public class BirdController : MonoBehaviour
             sKeyHoldTime += Time.deltaTime;
         }
 
-        if (Input.GetKeyUp(shootingKey))
+        if (Input.GetKeyUp(shootingKey) && shotCooldownTimer <= 0)
         {
             Shoot(sKeyHoldTime >= eggShotTime);
+        }
 
+        if (Input.GetKeyUp(shootingKey))
+        {
             sKeyHoldTime = 0f;
         }
     }
 
     void Shoot(bool isEggShot)
     {
+        shotCooldownTimer = shotCooldown;
         // Instantiate projectile
         if (featherPrefab != null && firePoint != null && eggPrefab != null)
         {
@@ -126,6 +136,11 @@ public class BirdController : MonoBehaviour
         Debug.Log("reverse controls here");
     }
 
+    void UpgradePower()
+    {
+        Debug.Log("upgrade power here");
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "BossProjectile")
@@ -137,6 +152,12 @@ public class BirdController : MonoBehaviour
         if (collision.gameObject.tag == "ReverseProjectile")
         {
             ReverseOtherControls();
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "UpgradeProjectile")
+        {
+            UpgradePower();
             Destroy(collision.gameObject);
         }
     }

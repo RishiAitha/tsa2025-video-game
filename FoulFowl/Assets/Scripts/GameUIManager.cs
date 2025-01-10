@@ -16,11 +16,15 @@ public class GameUIManager : MonoBehaviour
     public Image playerBar2;
     public Image playerBar3;
     public Image playerBar4;
+    public Image playerBarBorder3;
+    public Image playerBarBorder4;
 
     public Image eggBar1;
     public Image eggBar2;
     public Image eggBar3;
     public Image eggBar4;
+    public Image eggBarBorder3;
+    public Image eggBarBorder4;
 
     public float startingPlayerHealth;
     public float startingBossHealth;
@@ -37,11 +41,17 @@ public class GameUIManager : MonoBehaviour
             playerBar3.color = new Color(1, 1, 1, 0);
             eggBar4.color = new Color(1, 1, 1, 0);
             playerBar4.color = new Color(1, 1, 1, 0);
+            eggBarBorder3.color = new Color(1, 1, 1, 0);
+            eggBarBorder4.color = new Color(1, 1, 1, 0);
+            playerBarBorder3.color = new Color(1, 1, 1, 0);
+            playerBarBorder4.color = new Color(1, 1, 1, 0);
         }
         else if (GameData.playerCount == 3)
         {
             eggBar4.color = new Color(1, 1, 1, 0);
             playerBar4.color = new Color(1, 1, 1, 0);
+            eggBarBorder4.color = new Color(1, 1, 1, 0);
+            playerBarBorder4.color = new Color(1, 1, 1, 0);
         }
     }
 

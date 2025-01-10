@@ -192,7 +192,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: 0b2e1c1c57ff34b4f84b8c3b319720c9, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.14150941, g: 0.08877713, b: 0.08877713, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -259,8 +259,9 @@ MonoBehaviour:
   eggPrefab: {fileID: 8763401274505401350, guid: 8534a60895706d44f9584f335ab5a6b0, type: 3}
   firePoint: {fileID: 2459765266404435322}
   projectileSpeed: 10
-  rapidFireRate: 0.2
+  shotCooldown: 0.25
   eggShotTime: 1
+  eggBar: {fileID: 0}
   leftRotationKey: 97
   rightRotationKey: 100
   shootingKey: 115
