@@ -3,10 +3,9 @@ using UnityEngine;
 public class BirdController : MonoBehaviour
 {
     public float rotationSpeed = 100f; // Speed at which the bird rotates
-    public float upwardSpeed = 1f;    // Speed at which the bird moves upward
-    public float recoilAmount = 0.5f; // How far the bird moves downward when shooting
-    public float recoilDuration = 0.2f; // Time over which the recoil happens
-    private bool isRecoiling = false; // To prevent multiple recoil effects overlapping
+    public float upwardSpeed = 0f;    // Speed at which the bird moves upward
+    public float maxUpwardSpeed = 5f; // Maxmium speed at which the bird moves forward
+    public float recoilSpeed = -3f;
 
     public GameObject projectilePrefab; // Prefab for the projectile
     public Transform firePoint;        // Point from which the projectile is fired
@@ -46,14 +45,17 @@ public class BirdController : MonoBehaviour
     }
 
     void MoveUpward()
-{
-    // Move forward in the direction the bird is facing, unless recoiling
-    if (!isRecoiling)
     {
+        // Accelerate bird speed towards maximum
+        if (upwardSpeed < maxUpwardSpeed)
+        {
+            upwardSpeed += 0.1f;
+        }
+
+        // Move forward in the direction the bird is facing
         Vector3 forwardDirection = transform.up.normalized; // Bird's forward direction
         transform.Translate(forwardDirection * upwardSpeed * Time.deltaTime, Space.World);
     }
-}
 
 
     void HandleShooting()
@@ -91,51 +93,24 @@ public class BirdController : MonoBehaviour
     }
 
     void Shoot()
-{
-    // Instantiate projectile
-    if (projectilePrefab != null && firePoint != null)
     {
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-
-        if (rb != null)
+        // Instantiate projectile
+        if (projectilePrefab != null && firePoint != null)
         {
-            rb.gravityScale = 0f; // Disable gravity for the projectile
-            rb.velocity = firePoint.up * projectileSpeed; // Shoot projectile in the bird's forward (upward) direction
-        }
+            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
 
-        // Destroy the projectile after 5 seconds
-        Destroy(projectile, 5f);
+            if (rb != null)
+            {
+                rb.gravityScale = 0f; // Disable gravity for the projectile
+                rb.velocity = firePoint.up * projectileSpeed; // Shoot projectile in the bird's forward (upward) direction
+            }
 
-        // Trigger recoil after shooting
-        if (!isRecoiling)
-        {
-            StartCoroutine(HandleRecoil());
+            // Destroy the projectile after 5 seconds
+            Destroy(projectile, 5f);
+
+            // Trigger recoil after shooting
+            upwardSpeed = recoilSpeed;
         }
     }
-}
-
-private System.Collections.IEnumerator HandleRecoil()
-{
-    isRecoiling = true;
-
-    float elapsedTime = 0f;
-
-    // Calculate the direction opposite to where the bird is facing
-    Vector3 recoilDirection = -transform.up.normalized; // Opposite to the bird's upward direction
-    Vector3 initialPosition = transform.position;
-    Vector3 targetPosition = transform.position + (recoilDirection * recoilAmount);
-
-    // Smoothly move in the recoil direction over the recoil duration
-    while (elapsedTime < recoilDuration)
-    {
-        transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / recoilDuration);
-        elapsedTime += Time.deltaTime;
-        yield return null;
-    }
-
-    transform.position = targetPosition; // Ensure final position is exact
-    isRecoiling = false;
-}
-
 }

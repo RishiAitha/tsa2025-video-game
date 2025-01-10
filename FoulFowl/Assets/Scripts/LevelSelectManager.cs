@@ -20,4 +20,9 @@ public class LevelSelectManager : MonoBehaviour
     {
         SceneManager.LoadScene("PlayerSelectScene");
     }
+
+    public void LevelButtonPressed(int levelNum)
+    {
+        SceneManager.LoadScene("LevelScene" + levelNum);
+    }
 }
