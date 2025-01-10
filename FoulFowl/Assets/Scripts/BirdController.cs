@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UI;
 
 public class BirdController : MonoBehaviour
@@ -27,11 +28,25 @@ public class BirdController : MonoBehaviour
 
     public float health = 100f;
 
+    public GameObject player1;
+    public GameObject player2;
+    public GameObject player3;
+
+    public bool reverseControls;
+    private bool inCourutine;
+    public float reverseTime;
+
+    void Start(){
+        reverseControls = false;
+        inCourutine = false;
+    }
+
     void Update()
     {
         HandleRotation();
         HandleShooting();
         MoveUpward();
+        ReverseSelfControls();
 
         if (health <= 0f)
         {
@@ -133,7 +148,33 @@ public class BirdController : MonoBehaviour
 
     void ReverseOtherControls()
     {
-        Debug.Log("reverse controls here");
+        Debug.Log("Reverse Other Controls");
+        player1.GetComponent<BirdController>().reverseControls = true;
+        player2.GetComponent<BirdController>().reverseControls = true;
+        player3.GetComponent<BirdController>().reverseControls = true;
+    }
+
+    void ReverseSelfControls(){
+        Debug.Log("PLEASE WORK");
+        if (reverseControls && !inCourutine) {
+            Debug.Log("IT WORKED");
+            reverseControls = false;
+            inCourutine = true;
+            StartCoroutine(reverse());
+        }
+    }
+
+    IEnumerator reverse() {
+        Debug.Log("Here");
+        KeyCode temp = leftRotationKey;
+        leftRotationKey = rightRotationKey;
+        rightRotationKey = temp;
+        yield return new WaitForSeconds(reverseTime);
+        temp = leftRotationKey;
+        leftRotationKey = rightRotationKey;
+        rightRotationKey = temp;
+        inCourutine = false;
+        Debug.Log("Not Here");
     }
 
     void UpgradePower()
