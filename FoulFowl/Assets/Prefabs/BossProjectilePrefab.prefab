@@ -164,3 +164,4 @@ MonoBehaviour:
   sprite0: {fileID: 21300000, guid: 3b9499842f05fe24ab1514db0dca1955, type: 3}
   sprite1: {fileID: 21300000, guid: d1910b4f5b3827a4bbdd96939087f11b, type: 3}
   sprite2: {fileID: 21300000, guid: 164d167fd28979b439dd571e3a91c2b0, type: 3}
+  rotationSpeed: 100

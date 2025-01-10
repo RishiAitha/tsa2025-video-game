@@ -8,6 +8,8 @@ public class BossProjectileManager : MonoBehaviour
     public Sprite sprite1;
     public Sprite sprite2;
 
+    public float rotationSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,6 @@ public class BossProjectileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
     }
 }

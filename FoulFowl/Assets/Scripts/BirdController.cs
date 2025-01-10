@@ -26,6 +26,8 @@ public class BirdController : MonoBehaviour
     public KeyCode rightRotationKey;
     public KeyCode shootingKey;
 
+    private SpriteRenderer renderer;
+
     public float health = 100f;
 
     public GameObject player1;
@@ -36,9 +38,14 @@ public class BirdController : MonoBehaviour
     private bool inCourutine;
     public float reverseTime;
 
+    public float upgradeTime;
+    public float upgradeMultiplier;
+    public bool upgradeProjectile;
+
     void Start(){
         reverseControls = false;
         inCourutine = false;
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -122,10 +129,16 @@ public class BirdController : MonoBehaviour
             if (isEggShot)
             {
                 projectile = Instantiate(eggPrefab, firePoint.position, firePoint.rotation);
+                if (upgradeProjectile) {
+                    projectile.gameObject.GetComponent<BirdProjectileController>().damage *= upgradeMultiplier;
+                }
             }
             else
             {
                 projectile = Instantiate(featherPrefab, firePoint.position, firePoint.rotation);
+                if (upgradeProjectile) {
+                    projectile.gameObject.GetComponent<BirdProjectileController>().damage *= upgradeMultiplier;
+                }
             }
 
             projectile.GetComponent<BirdProjectileController>().correspondingPlayer = playerNum;
@@ -148,16 +161,13 @@ public class BirdController : MonoBehaviour
 
     void ReverseOtherControls()
     {
-        Debug.Log("Reverse Other Controls");
         player1.GetComponent<BirdController>().reverseControls = true;
         player2.GetComponent<BirdController>().reverseControls = true;
         player3.GetComponent<BirdController>().reverseControls = true;
     }
 
     void ReverseSelfControls(){
-        Debug.Log("PLEASE WORK");
         if (reverseControls && !inCourutine) {
-            Debug.Log("IT WORKED");
             reverseControls = false;
             inCourutine = true;
             StartCoroutine(reverse());
@@ -165,7 +175,8 @@ public class BirdController : MonoBehaviour
     }
 
     IEnumerator reverse() {
-        Debug.Log("Here");
+        Color temp2 = renderer.color;
+        renderer.color = Color.red;
         KeyCode temp = leftRotationKey;
         leftRotationKey = rightRotationKey;
         rightRotationKey = temp;
@@ -174,12 +185,23 @@ public class BirdController : MonoBehaviour
         leftRotationKey = rightRotationKey;
         rightRotationKey = temp;
         inCourutine = false;
-        Debug.Log("Not Here");
+        renderer.color = temp2;
     }
 
     void UpgradePower()
     {
-        Debug.Log("upgrade power here");
+        if (!upgradeProjectile){
+            StartCoroutine(upgrade());
+        }
+    }
+
+    IEnumerator upgrade() {
+        Color temp2 = renderer.color;
+        renderer.color = Color.magenta;
+        upgradeProjectile = true;
+        yield return new WaitForSeconds(upgradeTime);
+        upgradeProjectile = false;
+        renderer.color = temp2;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -266,3 +266,11 @@ MonoBehaviour:
   rightRotationKey: 100
   shootingKey: 115
   health: 100
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  player3: {fileID: 0}
+  reverseControls: 0
+  reverseTime: 0
+  upgradeTime: 0
+  upgradeMultiplier: 0
+  upgradeProjectile: 0
