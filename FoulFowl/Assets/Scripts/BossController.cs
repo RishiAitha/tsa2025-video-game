@@ -1,14 +1,27 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour
 {
     public GameObject projectilePrefab; // The projectile prefab
+    public GameObject reverseProjectilePrefab; // Special control-reversing projectile prefab
     public float projectileSpeed = 5f;  // Speed of the projectiles
-    public int numberOfProjectiles = 12; // Number of projectiles to shoot out evenly
+    public int numberOfProjectiles = 5; // Number of projectiles to shoot out evenly
     public float fireRate = 2f;         // Time interval between each burst of projectiles
     public float projectileLifetime = 3f; // Time before projectiles are destroyed
 
     private float timeSinceLastFire;
+
+    public float health = 1000f;
+    public PlayerManager playerManager;
+
+    public GameObject winMenu;
+
+    void Start()
+    {
+        Time.timeScale = 1;
+    }
 
     void Update()
     {
@@ -19,6 +32,11 @@ public class BossController : MonoBehaviour
         {
             ShootProjectiles();
             timeSinceLastFire = 0f;
+        }
+
+        if (health <= 0f)
+        {
+            Win();
         }
     }
 
@@ -35,9 +53,20 @@ public class BossController : MonoBehaviour
             float projectileDirY = Mathf.Sin(angle * Mathf.Deg2Rad * Random.Range(-5, 5));
             Vector2 projectileDirection = new Vector2(projectileDirX, projectileDirY).normalized;
 
+            GameObject projectile;
+            bool isReverseProjectile;
             // Spawn the projectile
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-
+            if (Random.Range(0, 50) > 49f)
+            {
+                projectile = Instantiate(reverseProjectilePrefab, transform.position, Quaternion.identity);
+                isReverseProjectile = true;
+            }
+            else
+            {
+                projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                isReverseProjectile = false;
+            }
+            
             // Rotate the projectile to match its direction
             float rotationZ = Mathf.Atan2(projectileDirection.y, projectileDirection.x) * Mathf.Rad2Deg;
             projectile.transform.rotation = Quaternion.Euler(0f, 0f, rotationZ + 90f);
@@ -47,7 +76,14 @@ public class BossController : MonoBehaviour
             if (rb != null)
             {
                 rb.gravityScale = 0f; // Disable gravity for the projectile
-                rb.velocity = projectileDirection * projectileSpeed; // Move the projectile in the calculated direction
+                if (isReverseProjectile)
+                {
+                    rb.velocity = projectileDirection * projectileSpeed / 2; // Move the projectile in the calculated direction
+                }
+                else
+                {
+                    rb.velocity = projectileDirection * projectileSpeed; // Move the projectile in the calculated direction
+                }
             }
 
             // Destroy the projectile after a set time
@@ -55,6 +91,52 @@ public class BossController : MonoBehaviour
 
             // Increment angle for the next projectile
             angle += angleStep;
+        }
+    }
+
+    void Win()
+    {
+        Time.timeScale = 0;
+        int winningPlayer = -1;
+        float maxDamage = 0;
+        for (int i = 0; i < GameData.playerCount; i++)
+        {
+            if (playerManager.playerDamageList[i] >= maxDamage)
+            {
+                winningPlayer = i;
+                maxDamage = playerManager.playerDamageList[i];
+            }
+        }
+
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "LevelScene0":
+                GameData.levelWinners[0] = winningPlayer;
+                GameData.levelsPlayed[0] = true;
+                break;
+            case "LevelScene1":
+                GameData.levelWinners[1] = winningPlayer;
+                GameData.levelsPlayed[1] = true;
+                break;
+            case "LevelScene2":
+                GameData.levelWinners[2] = winningPlayer;
+                GameData.levelsPlayed[2] = true;
+                break;
+        }
+
+        winMenu.SetActive(true);
+
+        gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "BirdProjectile")
+        {
+            BirdProjectileController projectileController = collision.gameObject.GetComponent<BirdProjectileController>();
+            health -= projectileController.damage;
+            playerManager.playerDamageList[projectileController.correspondingPlayer] += projectileController.damage;
+            Destroy(collision.gameObject);
         }
     }
 }

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: -2849371139259682707}
   - component: {fileID: 1827349175813310795}
   - component: {fileID: -4615519644901515946}
-  - component: {fileID: -5718160472441866365}
+  - component: {fileID: 2952512753154003383}
   m_Layer: 0
-  m_Name: FeatherPrefab
+  m_Name: EggPrefab
   m_TagString: BirdProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.30459332, y: 0.5246164, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.5246164, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -149,7 +149,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1.9999999}
   m_Direction: 0
---- !u!114 &-5718160472441866365
+--- !u!114 &2952512753154003383
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,4 +161,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1040c41ae2261474db7690a05a72a1cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 25

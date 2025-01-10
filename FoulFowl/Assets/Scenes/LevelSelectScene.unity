@@ -1501,6 +1501,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ee4de4e9a8fb04e98dfc19b257095b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelButtonImages:
+  - {fileID: 1855637289}
+  - {fileID: 168875303}
+  - {fileID: 1535656364}
+  levelSprites0:
+  - {fileID: -1267019760, guid: 680a13b047cfd0d43892c64fd63ab03b, type: 3}
+  - {fileID: 684585595, guid: 680a13b047cfd0d43892c64fd63ab03b, type: 3}
+  - {fileID: -2074683438, guid: 680a13b047cfd0d43892c64fd63ab03b, type: 3}
+  - {fileID: 1750921664, guid: 680a13b047cfd0d43892c64fd63ab03b, type: 3}
+  - {fileID: 1932021127, guid: 680a13b047cfd0d43892c64fd63ab03b, type: 3}
+  levelSprites1:
+  - {fileID: -634715987, guid: f9b7771ec01afd044ad4b80dc2c7b84d, type: 3}
+  - {fileID: -1542367696, guid: f9b7771ec01afd044ad4b80dc2c7b84d, type: 3}
+  - {fileID: 537833960, guid: f9b7771ec01afd044ad4b80dc2c7b84d, type: 3}
+  - {fileID: -191825286, guid: f9b7771ec01afd044ad4b80dc2c7b84d, type: 3}
+  - {fileID: -1630960673, guid: f9b7771ec01afd044ad4b80dc2c7b84d, type: 3}
+  levelSprites2:
+  - {fileID: -467730699, guid: 4e1a73a3c4b26964c9d5c69706c17582, type: 3}
+  - {fileID: 1637333620, guid: 4e1a73a3c4b26964c9d5c69706c17582, type: 3}
+  - {fileID: 1383064271, guid: 4e1a73a3c4b26964c9d5c69706c17582, type: 3}
+  - {fileID: -2114642351, guid: 4e1a73a3c4b26964c9d5c69706c17582, type: 3}
+  - {fileID: 1019592616, guid: 4e1a73a3c4b26964c9d5c69706c17582, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

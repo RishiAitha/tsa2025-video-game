@@ -2,28 +2,38 @@ using UnityEngine;
 
 public class BirdController : MonoBehaviour
 {
+    public int playerNum; // Player number
+
     public float rotationSpeed = 100f; // Speed at which the bird rotates
     public float upwardSpeed = 0f;    // Speed at which the bird moves upward
     public float maxUpwardSpeed = 5f; // Maxmium speed at which the bird moves forward
     public float recoilSpeed = -3f;
 
-    public GameObject projectilePrefab; // Prefab for the projectile
+    public GameObject featherPrefab; // Prefab for the feather projectile
+    public GameObject eggPrefab;    // Prefab for the egg projectile
     public Transform firePoint;        // Point from which the projectile is fired
     public float projectileSpeed = 10f; // Speed of the projectile
     public float rapidFireRate = 0.2f;  // Time interval between shots in rapid-fire mode
 
     private float sKeyHoldTime = 0f;    // Time the S key has been held
-    private bool isRapidFiring = false; // Whether the bird is in rapid-fire mode
+    public float eggShotTime = 3f;      // Time needed to shoot an egg
 
     public KeyCode leftRotationKey;
     public KeyCode rightRotationKey;
     public KeyCode shootingKey;
+
+    public float health = 100f;
 
     void Update()
     {
         HandleRotation();
         HandleShooting();
         MoveUpward();
+
+        if (health <= 0f)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void HandleRotation()
@@ -64,40 +74,33 @@ public class BirdController : MonoBehaviour
         {
             // Increase hold time for S key
             sKeyHoldTime += Time.deltaTime;
-
-            // Activate rapid-fire if held for 2 seconds
-            if (sKeyHoldTime >= 2f && !isRapidFiring)
-            {
-                isRapidFiring = true;
-                InvokeRepeating(nameof(Shoot), 0f, rapidFireRate);
-            }
         }
 
         if (Input.GetKeyUp(shootingKey))
         {
-            // Reset hold time
-            if (sKeyHoldTime < 2f)
-            {
-                Shoot(); // Tap shooting
-            }
+            Shoot(sKeyHoldTime >= eggShotTime);
 
             sKeyHoldTime = 0f;
-
-            // Stop rapid-fire mode
-            if (isRapidFiring)
-            {
-                isRapidFiring = false;
-                CancelInvoke(nameof(Shoot));
-            }
         }
     }
 
-    void Shoot()
+    void Shoot(bool isEggShot)
     {
         // Instantiate projectile
-        if (projectilePrefab != null && firePoint != null)
+        if (featherPrefab != null && firePoint != null && eggPrefab != null)
         {
-            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            GameObject projectile;
+            if (isEggShot)
+            {
+                projectile = Instantiate(eggPrefab, firePoint.position, firePoint.rotation);
+            }
+            else
+            {
+                projectile = Instantiate(featherPrefab, firePoint.position, firePoint.rotation);
+            }
+
+            projectile.GetComponent<BirdProjectileController>().correspondingPlayer = playerNum;
+
             Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
 
             if (rb != null)
@@ -111,6 +114,26 @@ public class BirdController : MonoBehaviour
 
             // Trigger recoil after shooting
             upwardSpeed = recoilSpeed;
+        }
+    }
+
+    void ReverseOtherControls()
+    {
+        Debug.Log("reverse controls here");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "BossProjectile")
+        {
+            health -= 5f;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "ReverseProjectile")
+        {
+            ReverseOtherControls();
+            Destroy(collision.gameObject);
         }
     }
 }

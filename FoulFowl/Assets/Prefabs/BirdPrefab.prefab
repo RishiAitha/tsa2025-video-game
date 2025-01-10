@@ -232,7 +232,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -254,10 +254,13 @@ MonoBehaviour:
   upwardSpeed: 0
   maxUpwardSpeed: 3
   recoilSpeed: -5
-  projectilePrefab: {fileID: 8763401274505401350, guid: 8f224e3271a1ead41abe137487109b7a, type: 3}
+  featherPrefab: {fileID: 8763401274505401350, guid: 8f224e3271a1ead41abe137487109b7a, type: 3}
+  eggPrefab: {fileID: 8763401274505401350, guid: 8534a60895706d44f9584f335ab5a6b0, type: 3}
   firePoint: {fileID: 2459765266404435322}
   projectileSpeed: 10
   rapidFireRate: 0.2
+  eggShotTime: 3
   leftRotationKey: 97
   rightRotationKey: 100
   shootingKey: 115
+  health: 100
