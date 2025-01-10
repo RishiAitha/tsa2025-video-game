@@ -22,7 +22,7 @@ public class VolumeButton : MonoBehaviour
         
     }
 
-    public void volumeToggled()
+    public void VolumeToggled()
     {
         if (isMuted)
         {
@@ -32,5 +32,7 @@ public class VolumeButton : MonoBehaviour
         {
             volumeButton.sprite = mutedSprite;
         }
+
+        isMuted = !isMuted;
     }
 }
