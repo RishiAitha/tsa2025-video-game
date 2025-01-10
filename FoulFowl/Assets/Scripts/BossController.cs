@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +18,8 @@ public class BossController : MonoBehaviour
     public PlayerManager playerManager;
 
     public GameObject winMenu;
+    public GameObject pauseMenu;
+    public TextMeshProUGUI winnerText;
 
     void Start()
     {
@@ -37,6 +40,12 @@ public class BossController : MonoBehaviour
         if (health <= 0f)
         {
             Win();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
         }
     }
 
@@ -101,7 +110,7 @@ public class BossController : MonoBehaviour
         float maxDamage = 0;
         for (int i = 0; i < GameData.playerCount; i++)
         {
-            if (playerManager.playerDamageList[i] >= maxDamage)
+            if (playerManager.playerDamageList[i] >= maxDamage && playerManager.playerList[i].activeInHierarchy)
             {
                 winningPlayer = i;
                 maxDamage = playerManager.playerDamageList[i];
@@ -121,6 +130,23 @@ public class BossController : MonoBehaviour
             case "LevelScene2":
                 GameData.levelWinners[2] = winningPlayer;
                 GameData.levelsPlayed[2] = true;
+                break;
+        }
+
+        winnerText.text = "The foulest fowl is: Player " + (winningPlayer + 1) + "!";
+        switch (winningPlayer)
+        {
+            case 0:
+                winnerText.color = new Color(61 / 255, 94 / 255, 154 / 255);
+                break;
+            case 1:
+                winnerText.color = new Color(189 / 255, 72 / 255, 72 / 255);
+                break;
+            case 2:
+                winnerText.color = new Color(187 / 255, 189 / 255, 72 / 255);
+                break;
+            case 3:
+                winnerText.color = new Color(98 / 255, 189 / 255, 72 / 255);
                 break;
         }
 

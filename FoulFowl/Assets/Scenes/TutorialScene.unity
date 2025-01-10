@@ -1033,8 +1033,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Whoever deals the most damage to a boss becomes the flock leader of the
-    level and the foulest fowl!
+  m_text: Sabotage other players with power ups to survive while dealing the most
+    damage to your enemies and become the foulest fowl!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 92d5584dee0e0684982c3d9370e8868d, type: 2}
   m_sharedMaterial: {fileID: 4166657190988540608, guid: 92d5584dee0e0684982c3d9370e8868d, type: 2}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BirdController : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class BirdController : MonoBehaviour
 
     private float sKeyHoldTime = 0f;    // Time the S key has been held
     public float eggShotTime = 3f;      // Time needed to shoot an egg
+    public Image eggBar;                // Bar used to show time neeeded for egg shots
 
     public KeyCode leftRotationKey;
     public KeyCode rightRotationKey;
@@ -70,6 +72,8 @@ public class BirdController : MonoBehaviour
 
     void HandleShooting()
     {
+        eggBar.fillAmount = sKeyHoldTime / eggShotTime;
+
         if (Input.GetKey(shootingKey))
         {
             // Increase hold time for S key

@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47ec8f513b520d4eaab6551043fbeb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNum: 0
   rotationSpeed: 200
   upwardSpeed: 0
   maxUpwardSpeed: 3
@@ -259,7 +260,7 @@ MonoBehaviour:
   firePoint: {fileID: 2459765266404435322}
   projectileSpeed: 10
   rapidFireRate: 0.2
-  eggShotTime: 3
+  eggShotTime: 1
   leftRotationKey: 97
   rightRotationKey: 100
   shootingKey: 115
