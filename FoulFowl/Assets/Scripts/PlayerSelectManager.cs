@@ -17,6 +17,9 @@ public class PlayerSelectManager : MonoBehaviour
 
     public AudioSource BGMusic;
 
+    public AudioSource continueSound;
+    public AudioSource backSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,11 +55,15 @@ public class PlayerSelectManager : MonoBehaviour
             GameData.playerCount = 2;
         }
 
+        continueSound.Play();
+
         SceneManager.LoadScene("LevelSelectScene");
     }
 
     public void BackPressed()
     {
+        backSound.Play();
+
         SceneManager.LoadScene("TutorialScene");
     }
 

@@ -9,6 +9,8 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject loseMenu;
 
+    public AudioSource loseSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +36,15 @@ public class PlayerManager : MonoBehaviour
     {
         if (!playerList[0].activeInHierarchy && !playerList[1].activeInHierarchy && !playerList[2].activeInHierarchy && !playerList[3].activeInHierarchy)
         {
+            Invoke("Lose", 0.3f);
+        }
+    }
+
+    void Lose()
+    {
+        if (Time.timeScale == 1)
+        {
+            loseSound.Play();
             Time.timeScale = 0;
             loseMenu.SetActive(true);
         }

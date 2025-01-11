@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public AudioSource BGMusic;
+
+    public AudioSource startSound;
     
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,7 @@ public class MainMenu : MonoBehaviour
 
     public void GameStarted()
     {
+        startSound.Play();
         SceneManager.LoadScene("TutorialScene");
     }
 }

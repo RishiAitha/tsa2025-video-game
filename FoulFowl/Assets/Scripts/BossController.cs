@@ -26,6 +26,10 @@ public class BossController : MonoBehaviour
     public float reverseProjectileChance = 0.005f;
     public float upgradeProjectileChance = 0.005f;
 
+    public AudioSource bossDamageSound;
+    public AudioSource bossDeathSound;
+    public AudioSource winSound;
+
     void Start()
     {
         Time.timeScale = 1;
@@ -44,7 +48,8 @@ public class BossController : MonoBehaviour
 
         if (health <= 0f)
         {
-            Win();
+            bossDeathSound.Play();
+            Invoke("Win", 0.55f);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -144,54 +149,58 @@ public class BossController : MonoBehaviour
 
     void Win()
     {
-        Time.timeScale = 0;
-        int winningPlayer = -1;
-        float maxDamage = 0;
-        for (int i = 0; i < GameData.playerCount; i++)
+        if (Time.timeScale == 1 && !pauseMenu.activeInHierarchy)
         {
-            if (playerManager.playerDamageList[i] >= maxDamage && playerManager.playerList[i].activeInHierarchy)
+            winSound.Play();
+            Time.timeScale = 0;
+            int winningPlayer = -1;
+            float maxDamage = 0;
+            for (int i = 0; i < GameData.playerCount; i++)
             {
-                winningPlayer = i;
-                maxDamage = playerManager.playerDamageList[i];
+                if (playerManager.playerDamageList[i] >= maxDamage && playerManager.playerList[i].activeInHierarchy)
+                {
+                    winningPlayer = i;
+                    maxDamage = playerManager.playerDamageList[i];
+                }
             }
+
+            switch (SceneManager.GetActiveScene().name)
+            {
+                case "LevelScene0":
+                    GameData.levelWinners[0] = winningPlayer;
+                    GameData.levelsPlayed[0] = true;
+                    break;
+                case "LevelScene1":
+                    GameData.levelWinners[1] = winningPlayer;
+                    GameData.levelsPlayed[1] = true;
+                    break;
+                case "LevelScene2":
+                    GameData.levelWinners[2] = winningPlayer;
+                    GameData.levelsPlayed[2] = true;
+                    break;
+            }
+
+            winnerText.text = "The foulest fowl is: Player " + (winningPlayer + 1) + "!";
+            switch (winningPlayer)
+            {
+                case 0:
+                    winnerText.color = new Color(0f, 0f, 1f);
+                    break;
+                case 1:
+                    winnerText.color = new Color(1f, 0f, 0f);
+                    break;
+                case 2:
+                    winnerText.color = new Color(1f, 1f, 0f);
+                    break;
+                case 3:
+                    winnerText.color = new Color(0f, 1f, 0f);
+                    break;
+            }
+
+            winMenu.SetActive(true);
+
+            gameObject.SetActive(false);
         }
-
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "LevelScene0":
-                GameData.levelWinners[0] = winningPlayer;
-                GameData.levelsPlayed[0] = true;
-                break;
-            case "LevelScene1":
-                GameData.levelWinners[1] = winningPlayer;
-                GameData.levelsPlayed[1] = true;
-                break;
-            case "LevelScene2":
-                GameData.levelWinners[2] = winningPlayer;
-                GameData.levelsPlayed[2] = true;
-                break;
-        }
-
-        winnerText.text = "The foulest fowl is: Player " + (winningPlayer + 1) + "!";
-        switch (winningPlayer)
-        {
-            case 0:
-                winnerText.color = new Color(0f, 0f, 1f);
-                break;
-            case 1:
-                winnerText.color = new Color(1f, 0f, 0f);
-                break;
-            case 2:
-                winnerText.color = new Color(1f, 1f, 0f);
-                break;
-            case 3:
-                winnerText.color = new Color(0f, 1f, 0f);
-                break;
-        }
-
-        winMenu.SetActive(true);
-
-        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -201,6 +210,7 @@ public class BossController : MonoBehaviour
             BirdProjectileController projectileController = collision.gameObject.GetComponent<BirdProjectileController>();
             health -= projectileController.damage;
             playerManager.playerDamageList[projectileController.correspondingPlayer] += projectileController.damage;
+            bossDamageSound.Play();
             Destroy(collision.gameObject);
         }
     }

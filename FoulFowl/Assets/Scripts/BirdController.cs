@@ -42,6 +42,10 @@ public class BirdController : MonoBehaviour
     public float upgradeMultiplier;
     public bool upgradeProjectile;
 
+    public AudioSource damageSound;
+    public AudioSource deathSound;
+    public AudioSource shootSound;
+
     void Start()
     {
         reverseControls = false;
@@ -59,6 +63,7 @@ public class BirdController : MonoBehaviour
 
         if (health <= 0f)
         {
+            deathSound.Play();
             gameObject.SetActive(false);
         }
     }
@@ -127,6 +132,7 @@ public class BirdController : MonoBehaviour
         // Instantiate projectile
         if (featherPrefab != null && firePoint != null && eggPrefab != null)
         {
+            shootSound.Play();
             GameObject projectile;
             if (isEggShot)
             {
@@ -210,6 +216,7 @@ public class BirdController : MonoBehaviour
     {
         if (collision.gameObject.tag == "BossProjectile")
         {
+            damageSound.Play();
             health -= 5f;
             Destroy(collision.gameObject);
         }

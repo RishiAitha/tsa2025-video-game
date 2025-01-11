@@ -9,23 +9,25 @@ public class VolumeButton : MonoBehaviour
     public bool isMuted;
     public Sprite mutedSprite;
     public Sprite unmutedSprite;
-    public AudioSource BGMusic;
+    public AudioSource[] audioSources;
 
     // Start is called before the first frame update
     void Start()
     {
         isMuted = MusicData.isBGMuted;
-        BGMusic = FindObjectOfType<AudioSource>();
-
-        if (isMuted)
+        audioSources = FindObjectsOfType<AudioSource>();
+        for (int i = 0; i < audioSources.Length; i++)
         {
-            BGMusic.volume = 0f;
-            volumeButton.sprite = mutedSprite;
-        }
-        else
-        {
-            BGMusic.volume = 0.1f;
-            volumeButton.sprite = unmutedSprite;
+            if (isMuted)
+            {
+                audioSources[i].volume = 0f;
+                volumeButton.sprite = mutedSprite;
+            }
+            else
+            {
+                audioSources[i].volume = 1f;
+                volumeButton.sprite = unmutedSprite;
+            }
         }
     }
 
@@ -37,15 +39,18 @@ public class VolumeButton : MonoBehaviour
 
     public void VolumeToggled()
     {
-        if (isMuted)
+        for (int i = 0; i < audioSources.Length; i++)
         {
-            volumeButton.sprite = unmutedSprite;
-            BGMusic.volume = 0.1f;
-        }
-        else
-        {
-            volumeButton.sprite = mutedSprite;
-            BGMusic.volume = 0f;
+            if (isMuted)
+            {
+                audioSources[i].volume = 1f;
+                volumeButton.sprite = unmutedSprite;
+            }
+            else
+            {
+                audioSources[i].volume = 0f;
+                volumeButton.sprite = mutedSprite;
+            }
         }
 
         isMuted = !isMuted;

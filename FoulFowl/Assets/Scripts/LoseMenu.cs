@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LoseMenu : MonoBehaviour
 {
+    public AudioSource exitSound;
+    public AudioSource continueSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,7 @@ public class LoseMenu : MonoBehaviour
 
     public void RestartClicked()
     {
+        continueSound.Play();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -26,6 +30,7 @@ public class LoseMenu : MonoBehaviour
     {
         MusicData.currentTime = 0;
         Time.timeScale = 1f;
+        exitSound.Play();
         SceneManager.LoadScene("LevelSelectScene");
     }
 }

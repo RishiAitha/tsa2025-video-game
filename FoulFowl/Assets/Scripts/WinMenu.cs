@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class WinMenu : MonoBehaviour
 {
+    public AudioSource exitSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class WinMenu : MonoBehaviour
     {
         MusicData.currentTime = 0;
         Time.timeScale = 1f;
+        exitSound.Play();
         SceneManager.LoadScene("LevelSelectScene");
     }
 }

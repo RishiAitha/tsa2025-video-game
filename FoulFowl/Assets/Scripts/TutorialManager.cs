@@ -12,6 +12,9 @@ public class TutorialManager : MonoBehaviour
 
     public AudioSource BGMusic;
 
+    public AudioSource continueSound;
+    public AudioSource backSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +44,6 @@ public class TutorialManager : MonoBehaviour
         {
             for (float alpha = 0f; alpha <= 1; alpha += 0.025f)
             {
-                Debug.Log("Changing Alpha: " + alpha);
                 TextMeshProUGUI text = tutorialTextList[i];
                 text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
 
@@ -54,11 +56,13 @@ public class TutorialManager : MonoBehaviour
 
     public void ContinuePressed()
     {
+        continueSound.Play();
         SceneManager.LoadScene("PlayerSelectScene");
     }
 
     public void BackPressed()
     {
+        backSound.Play();
         SceneManager.LoadScene("TitleScene");
     }
 }
