@@ -11,9 +11,13 @@ public class LevelSelectManager : MonoBehaviour
     public Sprite[] levelSprites1 = new Sprite[5];
     public Sprite[] levelSprites2 = new Sprite[5];
 
+    public AudioSource BGMusic;
+
     // Start is called before the first frame update
     void Start()
     {
+        BGMusic.time = MusicData.currentTime;
+
         for (int i = 0; i < GameData.levelWinners.Length; i++)
         {
             Sprite[] currentSprites;
@@ -53,7 +57,7 @@ public class LevelSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        MusicData.currentTime = BGMusic.time;
     }
     public void BackPressed()
     {
@@ -62,6 +66,7 @@ public class LevelSelectManager : MonoBehaviour
 
     public void LevelButtonPressed(int levelNum)
     {
+        MusicData.currentTime = 0f;
         SceneManager.LoadScene("LevelScene" + levelNum);
     }
 }

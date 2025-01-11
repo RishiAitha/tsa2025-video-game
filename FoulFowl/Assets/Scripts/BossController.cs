@@ -176,16 +176,16 @@ public class BossController : MonoBehaviour
         switch (winningPlayer)
         {
             case 0:
-                winnerText.color = new Color(61 / 255, 94 / 255, 154 / 255);
+                winnerText.color = new Color(0f, 0f, 1f);
                 break;
             case 1:
-                winnerText.color = new Color(189 / 255, 72 / 255, 72 / 255);
+                winnerText.color = new Color(1f, 0f, 0f);
                 break;
             case 2:
-                winnerText.color = new Color(187 / 255, 189 / 255, 72 / 255);
+                winnerText.color = new Color(1f, 1f, 0f);
                 break;
             case 3:
-                winnerText.color = new Color(98 / 255, 189 / 255, 72 / 255);
+                winnerText.color = new Color(0f, 1f, 0f);
                 break;
         }
 

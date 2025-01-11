@@ -10,10 +10,14 @@ public class TutorialManager : MonoBehaviour
     public List<TextMeshProUGUI> tutorialTextList;
     public List<Image> tutorialImageList;
 
+    public AudioSource BGMusic;
+
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < tutorialTextList.Count; i++)
+        BGMusic.time = MusicData.currentTime;
+
+        for (int i = 0; i < 3; i++)
         {
             TextMeshProUGUI text = tutorialTextList[i];
             text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
@@ -28,7 +32,7 @@ public class TutorialManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        MusicData.currentTime = BGMusic.time;
     }
 
     public IEnumerator TutorialFade()

@@ -28,6 +28,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitClicked()
     {
+        MusicData.currentTime = 0;
         SceneManager.LoadScene("LevelSelectScene");
     }
 }

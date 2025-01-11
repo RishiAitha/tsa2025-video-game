@@ -6,18 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public Button startButton;
-
+    public AudioSource BGMusic;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        BGMusic.time = MusicData.currentTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        MusicData.currentTime = BGMusic.time;
     }
 
     public void GameStarted()

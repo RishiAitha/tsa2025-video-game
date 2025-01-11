@@ -15,9 +15,13 @@ public class PlayerSelectManager : MonoBehaviour
     public Sprite toggleOff;
     public Sprite toggleOn;
 
+    public AudioSource BGMusic;
+
     // Start is called before the first frame update
     void Start()
     {
+        BGMusic.time = MusicData.currentTime;
+
         player3Active = false;
         player4Active = false;
         player3Panel.color = new Color(255, 255, 255, 0.5f);
@@ -30,7 +34,7 @@ public class PlayerSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        MusicData.currentTime = BGMusic.time;
     }
 
     public void ContinuePressed()

@@ -24,6 +24,7 @@ public class LoseMenu : MonoBehaviour
 
     public void ExitClicked()
     {
+        MusicData.currentTime = 0;
         SceneManager.LoadScene("LevelSelectScene");
     }
 }
