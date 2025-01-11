@@ -61,12 +61,35 @@ public class GameUIManager : MonoBehaviour
         bossBar.fillAmount = boss.GetComponent<BossController>().health / startingBossHealth;
         playerBar1.fillAmount = player1.GetComponent<BirdController>().health / startingPlayerHealth;
         playerBar2.fillAmount = player2.GetComponent<BirdController>().health / startingPlayerHealth;
-        if (player3.activeInHierarchy)
+        
+        if (!player1.activeInHierarchy)
+        {
+            playerBar1.fillAmount = 1;
+            playerBar1.color = new Color(0, 0, 0, 1);
+        }
+        if (!player2.activeInHierarchy)
+        {
+            playerBar2.fillAmount = 1;
+            playerBar2.color = new Color(0, 0, 0, 1);
+        }
+        if (!player3.activeInHierarchy && (GameData.playerCount == 3 || GameData.playerCount == 4))
+        {
+            playerBar3.fillAmount = 1;
+            playerBar3.color = new Color(0, 0, 0, 1);
+        }
+        if (!player4.activeInHierarchy && GameData.playerCount == 4)
+        {
+            playerBar4.fillAmount = 1;
+            playerBar4.color = new Color(0, 0, 0, 1);
+        }
+
+        if (GameData.playerCount == 3)
         {
             playerBar3.fillAmount = player3.GetComponent<BirdController>().health / startingPlayerHealth;
         }
-        if (player4.activeInHierarchy)
+        else if (GameData.playerCount == 4)
         {
+            playerBar3.fillAmount = player3.GetComponent<BirdController>().health / startingPlayerHealth;
             playerBar4.fillAmount = player4.GetComponent<BirdController>().health / startingPlayerHealth;
         }
     }
