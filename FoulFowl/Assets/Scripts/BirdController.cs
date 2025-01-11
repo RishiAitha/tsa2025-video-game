@@ -176,7 +176,7 @@ public class BirdController : MonoBehaviour
 
     IEnumerator reverse() {
         Color temp2 = renderer.color;
-        renderer.color = Color.red;
+        renderer.color = Color.magenta;
         KeyCode temp = leftRotationKey;
         leftRotationKey = rightRotationKey;
         rightRotationKey = temp;
@@ -197,7 +197,7 @@ public class BirdController : MonoBehaviour
 
     IEnumerator upgrade() {
         Color temp2 = renderer.color;
-        renderer.color = Color.magenta;
+        renderer.color = Color.red;
         upgradeProjectile = true;
         yield return new WaitForSeconds(upgradeTime);
         upgradeProjectile = false;
