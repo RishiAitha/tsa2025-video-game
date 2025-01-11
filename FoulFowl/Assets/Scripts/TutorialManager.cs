@@ -26,7 +26,7 @@ public class TutorialManager : MonoBehaviour
             img.color = new Color(img.color.r, img.color.g, img.color.b, 0);
         }
 
-        StartCoroutine("TutorialFade");
+        StartCoroutine(TutorialFade());
     }
 
     // Update is called once per frame
@@ -41,6 +41,7 @@ public class TutorialManager : MonoBehaviour
         {
             for (float alpha = 0f; alpha <= 1; alpha += 0.025f)
             {
+                Debug.Log("Changing Alpha: " + alpha);
                 TextMeshProUGUI text = tutorialTextList[i];
                 text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
 

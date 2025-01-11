@@ -265,7 +265,7 @@ MonoBehaviour:
   leftRotationKey: 97
   rightRotationKey: 100
   shootingKey: 115
-  health: 50
+  health: 25
   player1: {fileID: 0}
   player2: {fileID: 0}
   player3: {fileID: 0}

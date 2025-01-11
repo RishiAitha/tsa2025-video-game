@@ -199,7 +199,6 @@ public class BossController : MonoBehaviour
         if (collision.gameObject.tag == "BirdProjectile")
         {
             BirdProjectileController projectileController = collision.gameObject.GetComponent<BirdProjectileController>();
-            Debug.Log(projectileController.damage);
             health -= projectileController.damage;
             playerManager.playerDamageList[projectileController.correspondingPlayer] += projectileController.damage;
             Destroy(collision.gameObject);
