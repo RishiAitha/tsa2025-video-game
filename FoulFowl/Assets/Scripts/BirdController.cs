@@ -42,10 +42,12 @@ public class BirdController : MonoBehaviour
     public float upgradeMultiplier;
     public bool upgradeProjectile;
 
-    void Start(){
+    void Start()
+    {
         reverseControls = false;
         inCourutine = false;
         renderer = GetComponent<SpriteRenderer>();
+        GetComponent<Animator>().SetInteger("PlayerNum", playerNum);
     }
 
     void Update()
